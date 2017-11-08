@@ -7,20 +7,28 @@ $(document).ready(() => {
 
         const newUsername = $("#newUsername").val();
         const newPassword = $("#newPassword").val();
+        const newPasswordVerifier = $("#newPasswordVerify").val();
 
-        if(!newUsername || !newPassword) {
+        if(!newUsername || !newPassword || !newPasswordVerifier) {
             document.getElementById("emptyError").innerHTML = "Information missing";
         } else {
-            SDK.signup(newUsername, newPassword, (err, data) => {
-                if (err && err.xhr.status == 400) {
-                    $(".form-group").addClass("Client fail");
-                }
-                else if (err) {
-                    console.log("Error")
-                } else {
-                    console.log("New user");
-                }
-            });
+            if(newPassword.valueOf() === newPasswordVerifier.valueOf()) {
+                SDK.signup(newUsername, newPassword, (err, data) => {
+                    if (err && err.xhr.status == 400) {
+                        $(".form-group").addClass("Client fail");
+                    }
+                    else if (err) {
+                        console.log("Error")
+                    } else {
+                        window.alert(newUsername + "\t" + "Sign up successful")
+                        window.location.href = "login.html"
+
+                    }
+                });
+            } else {
+                document.getElementById("emptyError").innerHTML = "Password doesn't match";
+            }
+
         }
     });
 });
