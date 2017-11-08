@@ -4,22 +4,25 @@ $(document).ready(() => {
         const username = $("#inputUsername").val();
         const password = $("#inputPassword").val();
 
-        SDK.login(username, password, (err, data) => {
-            if(err && err.xhr.status == 401) {
-                $(".form-group").addClass("Client fail");
-                document.getElementById("error").innerHTML = "Wrong username or password";
-            }
-            else if(err) {
-                console.log("Error")
-            } else {
-                console.log("hej")
-                window.location.href ="test.html";
-            }
-        });
+        if (!username || !password) {
+            document.getElementById("error").innerHTML = "Information missing";
+        } else {
+            SDK.login(username, password, (err, data) => {
+                if (err && err.xhr.status == 401) {
+                    $(".form-group").addClass("Client fail");
+                    document.getElementById("error").innerHTML = "Wrong username or password";
+                }
+                else if (err) {
+                    console.log("Error")
+                } else {
+                    window.location.href = "test.html";
+                }
+            });
+        }
 
     });
 
     $("#signUpButton").click(() => {
-        window.location.href="signup.html";
+        window.location.href = "signup.html";
     });
 });

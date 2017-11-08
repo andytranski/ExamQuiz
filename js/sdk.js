@@ -45,6 +45,21 @@ const SDK = {
         });
     },
 
+    signup: (newUsername, newPassword, callback) => {
+        SDK.request({
+            data: {
+                username: newUsername,
+                password: newPassword
+            },
+            url: "/user/signup",
+            method: "POST"
+        }, (err, data) => {
+            if (err) return callback(err);
+
+            callback(null, data);
+        });
+    },
+
     Storage: {
         prefix: "DøkQuizSDK",
         persist: (key, value) => {
