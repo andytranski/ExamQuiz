@@ -18,4 +18,8 @@ $(document).ready(() => {
         });
 
     });
+
+    $("#signUpButton").click(() => {
+        window.location.href="signup.html";
+    });
 });
