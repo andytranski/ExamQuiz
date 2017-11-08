@@ -36,8 +36,8 @@ const SDK = {
         }, (err, data) => {
 
             if (err) return callback(err);
-
-            SDK.Storage.persist("Token", data);
+            SDK.Storage.persist("Token", data.token);
+            SDK.Storage.persist("UserId", data.user_id);
 
             callback(null, data);
         });
@@ -59,19 +59,32 @@ const SDK = {
         });
     },
 
-    currentByToken: (callback) => {
+    /*
+        currentByToken: (callback) => {
+            SDK.request({
+                url: "/user/myuser",
+                method: "GET",
+                headers: {
+                    authorization: SDK.Storage.load("Token")
+                }
+            }, (err, data) => {
+                if(err) return callback(err);
+
+                callback(null, data)
+            });
+        },
+
+        */
+
+    current: (cb) => {
         SDK.request({
-            url: "/user/myuser",
             method: "GET",
-            headers: {
-                authorization: SDK.Storage.load("Token")
-            }
-        }, callback);
-    },
-
-    current: () => {
+            url: "/user/myuser",
+            headers: {authorization: SDK.Storage.load("Token")}
+        }, cb);
 
     },
+
 
     Storage: {
         prefix: "DøkQuizSDK",
@@ -79,11 +92,11 @@ const SDK = {
             window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
         },
         load: (key) => {
-            var val = window.localStorage.getItem(this.prefix + key);
-            try{
+            const val = window.localStorage.getItem(SDK.Storage.prefix + key);
+            try {
                 return JSON.parse(val);
             }
-            catch(e) {
+            catch (e) {
                 return val;
             }
         },
