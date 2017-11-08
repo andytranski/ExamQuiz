@@ -1,5 +1,5 @@
 const SDK = {
-    serverURL: "http://localhost:8080/api/",
+    serverURL: "http://localhost:8080/api",
     request: (options, callback) => {
 
         let headers = {};
@@ -20,7 +20,7 @@ const SDK = {
                 callback(null, data, status, xhr);
             },
             error: (xhr, status, errorThrown) => {
-                cb({xhr: xhr, status: status, error: errorThrown});
+                callback({xhr: xhr, status: status, error: errorThrown});
             }
         });
     },
@@ -38,6 +38,8 @@ const SDK = {
             if (err) return callback(err);
 
             SDK.Storage.persist("tokenId", data.id);
+            SDK.Storage.persist("UserId", data.userId);
+            SDK.Storage.persist("user", data.user);
 
             callback(null, data);
         });
