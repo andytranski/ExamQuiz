@@ -15,7 +15,10 @@ $(document).ready(() => {
                 else if (err) {
                     console.log("Error")
                 } else {
-                   window.location.href = "profile.html";
+                    SDK.loadCurrentUser((err, user) => {
+                        window.location.href = "profile.html";
+                    });
+
                 }
             });
         }

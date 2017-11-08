@@ -33,12 +33,12 @@ const SDK = {
             },
             url: "/user/login",
             method: "POST"
-        }, (err, data) => {
+        }, (err, token) => {
 
             if (err) return callback(err);
-            SDK.Storage.persist("Token", data);
+            SDK.Storage.persist("Token", token);
 
-            callback(null, data);
+            callback(null, token);
         });
     },
 
@@ -58,32 +58,22 @@ const SDK = {
         });
     },
 
-    /*
-        currentByToken: (callback) => {
-            SDK.request({
-                url: "/user/myuser",
-                method: "GET",
-                headers: {
-                    authorization: SDK.Storage.load("Token")
-                }
-            }, (err, data) => {
-                if(err) return callback(err);
-
-                callback(null, data)
-            });
-        },
-
-        */
-
-    current: (cb) => {
+    loadCurrentUser: (cb) => {
         SDK.request({
             method: "GET",
             url: "/user/myuser",
             headers: {authorization: SDK.Storage.load("Token")}
-        }, cb);
+        }, (err, user) => {
+            if(err) return cb(err);
+            SDK.Storage.persist("User", user.currentUser);
 
+            cb(null, user.currentUser)
+        });
     },
 
+    currentUser: () => {
+        return SDK.Storage.load("User");
+    },
 
     Storage: {
         prefix: "DøkQuizSDK",
