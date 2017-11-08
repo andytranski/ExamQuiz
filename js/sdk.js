@@ -36,8 +36,7 @@ const SDK = {
         }, (err, data) => {
 
             if (err) return callback(err);
-            SDK.Storage.persist("Token", data.token);
-            SDK.Storage.persist("UserId", data.user_id);
+            SDK.Storage.persist("Token", data);
 
             callback(null, data);
         });
