@@ -15,7 +15,7 @@ $(document).ready(() => {
                 else if (err) {
                     console.log("Error")
                 } else {
-                    window.location.href = "test.html";
+                    window.location.href = "../profile.html";
                 }
             });
         }

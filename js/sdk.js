@@ -37,13 +37,12 @@ const SDK = {
 
             if (err) return callback(err);
 
-            SDK.Storage.persist("tokenId", data.id);
-            SDK.Storage.persist("UserId", data.userId);
-            SDK.Storage.persist("user", data.user);
+            SDK.Storage.persist("Token", data);
 
             callback(null, data);
         });
     },
+
 
     signup: (newUsername, newPassword, callback) => {
         SDK.request({
@@ -60,10 +59,33 @@ const SDK = {
         });
     },
 
+    currentByToken: (callback) => {
+        SDK.request({
+            url: "/user/myuser",
+            method: "GET",
+            headers: {
+                authorization: SDK.Storage.load("Token")
+            }
+        }, callback);
+    },
+
+    current: () => {
+
+    },
+
     Storage: {
         prefix: "DøkQuizSDK",
         persist: (key, value) => {
             window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
+        },
+        load: (key) => {
+            var val = window.localStorage.getItem(this.prefix + key);
+            try{
+                return JSON.parse(val);
+            }
+            catch(e) {
+                return val;
+            }
         },
     }
 };
