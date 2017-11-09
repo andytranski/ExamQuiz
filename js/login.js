@@ -1,8 +1,8 @@
 $(document).ready(() => {
     $("#loginButton").click(() => {
 
-        const username = $("#inputUsername").val();
-        const password = $("#inputPassword").val();
+        let username = $("#inputUsername").val();
+        let password = $("#inputPassword").val();
 
         if (!username || !password) {
             document.getElementById("error").innerHTML = "Information missing";
