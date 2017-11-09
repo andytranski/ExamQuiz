@@ -26,7 +26,12 @@ $(document).ready(() => {
                     }
                 });
             } else {
+                $("#newPassword").val('');
+                $("#newPasswordVerify").val('');
                 document.getElementById("emptyError").innerHTML = "Password doesn't match";
+
+
+
             }
 
         }
