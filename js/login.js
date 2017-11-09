@@ -1,8 +1,8 @@
 $(document).ready(() => {
     $("#loginButton").click(() => {
 
-        const username = $("#inputUsername").val();
-        const password = $("#inputPassword").val();
+        let username = $("#inputUsername").val();
+        let password = $("#inputPassword").val();
 
         if (!username || !password) {
             document.getElementById("error").innerHTML = "Information missing";
@@ -13,10 +13,19 @@ $(document).ready(() => {
                     document.getElementById("error").innerHTML = "Wrong username or password";
                 }
                 else if (err) {
-                    console.log("Error")
-                } else {
-                    SDK.loadCurrentUser((err, user) => {
-                        window.location.href = "profile.html";
+                    console.log("Error");
+                } else if (SDK.Storage.load("Token") === null) {
+                    document.getElementById("error").innerHTML = "No user found";
+                }
+                else {
+                    SDK.loadCurrentUser((err, data) => {
+                        if (err && err.xhr.status == 401) {
+                            $(".form-group").addClass("Client fail");
+                            document.getElementById("error").innerHTML = "Wrong username or password";
+                        } else {
+                            window.location.href = "profile.html";
+                        }
+
                     });
 
                 }

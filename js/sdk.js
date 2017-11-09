@@ -15,9 +15,9 @@ const SDK = {
             headers: headers,
             contentType: "application/json",
             dataType: "json",
-            data: JSON.stringify(options.data),
+            data: JSON.stringify(SDK.encrypt(JSON.stringify(options.data))),
             success: (data, status, xhr) => {
-                callback(null, data, status, xhr);
+                callback(null, SDK.decrypt(data), status, xhr);
             },
             error: (xhr, status, errorThrown) => {
                 callback({xhr: xhr, status: status, error: errorThrown});
@@ -33,12 +33,12 @@ const SDK = {
             },
             url: "/user/login",
             method: "POST"
-        }, (err, token) => {
+        }, (err, data) => {
 
             if (err) return callback(err);
-            SDK.Storage.persist("Token", token);
+            SDK.Storage.persist("Token", data);
 
-            callback(null, token);
+            callback(null, data);
         });
     },
 
@@ -62,12 +62,15 @@ const SDK = {
         SDK.request({
             method: "GET",
             url: "/user/myuser",
-            headers: {authorization: SDK.Storage.load("Token")}
+            headers: {
+                authorization: SDK.Storage.load("Token"),
+            },
         }, (err, user) => {
-            if(err) return cb(err);
-            SDK.Storage.persist("User", user.currentUser);
+            if (err) return cb(err);
 
-            cb(null, user.currentUser)
+                SDK.Storage.persist("User", user);
+
+            cb(null, user);
         });
     },
 
@@ -89,5 +92,31 @@ const SDK = {
                 return val;
             }
         },
-    }
+    },
+
+    encrypt: (encrypt) => {
+        if (encrypt !== undefined && encrypt.length !== 0) {
+            const key = ['L', 'Y', 'N'];
+            let isEncrypted = "";
+            for (let i = 0; i < encrypt.length; i++) {
+                isEncrypted += (String.fromCharCode((encrypt.charAt(i)).charCodeAt(0) ^ (key[i % key.length]).charCodeAt(0)))
+            }
+            return isEncrypted;
+        } else {
+            return encrypt;
+        }
+    },
+
+    decrypt: (decrypt) => {
+        if (decrypt !== undefined && decrypt.length !== 0) {
+            const key = ['L', 'Y', 'N'];
+            let isDecrypted = "";
+            for (let i = 0; i < decrypt.length; i++) {
+                isDecrypted += (String.fromCharCode((decrypt.charAt(i)).charCodeAt(0) ^ (key[i % key.length]).charCodeAt(0)))
+            }
+            return isDecrypted;
+        } else {
+            return decrypt;
+        }
+    },
 };
