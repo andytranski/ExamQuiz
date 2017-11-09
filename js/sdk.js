@@ -67,15 +67,14 @@ const SDK = {
             },
         }, (err, user) => {
             if (err) return cb(err);
-
-                SDK.Storage.persist("User", user);
-
+            SDK.Storage.persist("User", user);
             cb(null, user);
         });
     },
 
-    currentUser: () => {
-        return SDK.Storage.load("User");
+        currentUser: () => {
+        const loadedUser = SDK.Storage.load("User");
+        return loadedUser.currentUser;
     },
 
     Storage: {
