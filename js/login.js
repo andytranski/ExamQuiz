@@ -23,6 +23,7 @@ $(document).ready(() => {
                             $(".form-group").addClass("Client fail");
                             document.getElementById("error").innerHTML = "Wrong username or password";
                         } else {
+                            console.log(data)
                             window.location.href = "profile.html";
                         }
 
