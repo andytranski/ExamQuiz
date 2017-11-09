@@ -15,6 +15,7 @@ $(document).ready(() => {
                 else if (err) {
                     console.log("Error");
                 } else if (SDK.Storage.load("Token") === null) {
+                    $("#inputPassword").val('');
                     document.getElementById("error").innerHTML = "No user found";
                 }
                 else {
