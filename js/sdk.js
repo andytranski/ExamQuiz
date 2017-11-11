@@ -83,11 +83,39 @@ const SDK = {
                 url: "/user/logout",
                 data: userId,
             }, (err, data) => {
-                if(err) return cb(err);
+                if (err) return cb(err);
 
                 cb(null, data);
             });
 
+        },
+
+        loadMenu: (cb) => {
+            $("#nav-container").load("menu.html", () => {
+                const currentUser = SDK.currentUser();
+                const userId = currentUser.userId;
+                if (currentUser) {
+                    $(".navbar-right").html(`
+                        <li><a href="#" id="logout-link">Logout</a></li>
+                    `);
+                } else {
+                    $(".navbar-right").html(`
+                    <li><a href="login.html">Login <span class="sr-only">(current)</span></a></li>
+                    `);
+                }
+                $("#logout-link").click(() => {
+                    SDK.logOut(userId, (err, data) => {
+                        if(err && err.xhr.status == 401) {
+                            $(".form-group").addClass("has-error");
+                        }else {
+                            window.location.href = "login.html";
+                            SDK.Storage.remove("User")
+                            SDK.Storage.remove("Token")
+                        }
+                        cb;
+                    })
+                });
+            });
         },
 
         Storage:
