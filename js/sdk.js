@@ -83,10 +83,35 @@ const SDK = {
                 url: "/user/logout",
                 data: userId,
             }, (err, data) => {
-                if(err) return cb(err);
+                if (err) return cb(err);
 
                 cb(null, data);
             });
+
+        },
+
+
+        loadmenu: (cb) => {
+            $("#nav-container").load("menu.html", () => {
+                    const currentUser = SDK.currentUser();
+                    const userId = currentUser.userId;
+
+                    $(".navbar-right").html(`<li><a href="#" id="logout-link">Log out</a></li>`);
+
+                    $("#logout-link").click(() => {
+                        SDK.logOut(userId, (err, data) => {
+                            if (err && err.xhr.status == 401) {
+                                $(".form-group").addClass("has-error");
+                            } else {
+                                window.location.href = "login.html";
+                                SDK.Storage.remove("User")
+                                SDK.Storage.remove("token")
+                            }
+                        })
+                    });
+                    cb;
+                }
+            );
 
         },
 
@@ -107,11 +132,13 @@ const SDK = {
                             return val;
                         }
                     },
-                remove: (key) => {
-                    window.localStorage.removeItem(SDK.Storage.prefix + key);
-                }
+                remove:
+                    (key) => {
+                        window.localStorage.removeItem(SDK.Storage.prefix + key);
+                    }
 
-            },
+            }
+        ,
 
         encrypt: (encrypt) => {
             if (encrypt !== undefined && encrypt.length !== 0) {
