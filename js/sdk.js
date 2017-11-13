@@ -91,9 +91,10 @@ const SDK = {
         },
 
         loadMenu: (cb) => {
-            $("#nav-container").load("menu.html", () => {
+            $("#nav-container").load("menu2.html", () => {
                 const currentUser = SDK.currentUser();
                 const userId = currentUser.userId;
+
                 if (currentUser) {
                     $(".navbar-right").html(`
                         <li><a href="#" id="logout-link">Logout</a></li>
@@ -108,7 +109,7 @@ const SDK = {
                         if(err && err.xhr.status == 401) {
                             $(".form-group").addClass("has-error");
                         }else {
-                            window.location.href = "login.html";
+                           //window.location.href = "login.html";
                             SDK.Storage.remove("User")
                             SDK.Storage.remove("Token")
                         }

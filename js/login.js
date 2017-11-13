@@ -26,6 +26,7 @@ $(document).ready(() => {
                         } else {
                             console.log(data)
                             window.location.href = "profile.html";
+
                         }
 
                     });
