@@ -19,4 +19,25 @@ $(document).ready(() => {
             }
         })
     });
+
+    SDK.loadCourses((err, courses) => {
+        if (err && err.xhr.status == 401) {
+            $(".form-group").addClass("Client fail");
+        } else {
+            var courses = JSON.parse(courses);
+
+
+            for (var key in courses) {
+                if (!courses.hasOwnProperty(key)) {
+                } else {
+                    var val = courses[key];
+                        $(".radioButtons").html(`<label><input type="radio" name="optradio" class="Option1">${val.courseTitle}</label>`)
+
+                }
+            }
+
+        }
+    });
+
+
 });
