@@ -4,6 +4,7 @@
 
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="lib/css/bootstrap.lumen.min.css">
 
     <meta charset="UTF-8">
     <title>My Profile</title>
@@ -11,44 +12,36 @@
 </head>
 <body>
 
+
 <div class="container">
 
-    <div class="row" id="nav-container"></div>
+    <div class="row" id="nav-container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Døk Quiz</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="newquiz.html">New quiz</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                </ul>
+            </div>
+        </nav>
+    </div>
 
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header"></div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-2 img-container"></div>
-        <div class="col-lg-10 profile-info"></div>
-        <div class="col-lg-12">
 
-            <h3>Orders</h3>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Items</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody id="basket-tbody">
-
-                </tbody>
-            </table>
-        </div>
-    </div>
 
 </div>
 
-<button style="margin-bottom: 40px" class="btn btn-primary pull-left" id="logoutButton">Log out
-</button>
-
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">2016 © All rights reserved - Awesome Bookstore Inc.</p>
+        <p class="text-muted"> 2017 © All rights reserved - DøkQuiz</p>
     </div>
 </footer>
 

@@ -83,11 +83,25 @@ const SDK = {
                 url: "/user/logout",
                 data: userId,
             }, (err, data) => {
-                if(err) return cb(err);
+                if (err) return cb(err);
 
                 cb(null, data);
             });
 
+        },
+
+        loadCourses: (cb) => {
+            SDK.request({
+                method: "GET",
+                url: "/course",
+                headers: {
+                    authorization: SDK.Storage.load("Token"),
+                },
+            }, (err, course) => {
+                if (err) return cb(err);
+                cb(null, course)
+
+            });
         },
 
         Storage:
@@ -107,11 +121,13 @@ const SDK = {
                             return val;
                         }
                     },
-                remove: (key) => {
-                    window.localStorage.removeItem(SDK.Storage.prefix + key);
-                }
+                remove:
+                    (key) => {
+                        window.localStorage.removeItem(SDK.Storage.prefix + key);
+                    }
 
-            },
+            }
+        ,
 
         encrypt: (encrypt) => {
             if (encrypt !== undefined && encrypt.length !== 0) {
