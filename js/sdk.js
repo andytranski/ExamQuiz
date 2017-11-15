@@ -125,12 +125,20 @@ const SDK = {
             })
         },
 
-    loadQuizzes: (cb) => {
+        loadQuizzes: (cb) => {
+            const chosenCourse = SDK.Storage.load("chosenCourse");
+            const courseId = chosenCourse.courseId;
             SDK.request({
                 method: "GET",
-                url: "/quiz/" + SDK.Storage.load()
-            })
-    },
+                url: "/quiz/" + courseId,
+                headers: {
+                    authorization: SDK.Storage.load("Token")
+                },
+            }, (err, quiz) => {
+                if (err) return cb(err);
+                cb(null, quiz)
+            });
+        },
 
         Storage:
             {
