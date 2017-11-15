@@ -104,6 +104,27 @@ const SDK = {
             });
         },
 
+        createQuiz: (createdBy, questionCount, quizTitle, quizDescription, courseId, callback) => {
+            SDK.request({
+                data: {
+                    createdBy: createdBy,
+                    questionCount: questionCount,
+                    quizTitle: quizTitle,
+                    quizDescription: quizDescription,
+                    courseId: courseId
+                },
+                url: "/quiz",
+                method: "POST",
+                headers: {
+                    authorization: SDK.Storage.load("Token"),
+                }
+            }, (err, data) => {
+                if (err) return callback(err);
+
+                callback(null, data);
+            })
+        },
+
         Storage:
             {
                 prefix: "DøkQuizSDK",
