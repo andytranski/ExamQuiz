@@ -125,6 +125,13 @@ const SDK = {
             })
         },
 
+    loadQuizzes: (cb) => {
+            SDK.request({
+                method: "GET",
+                url: "/quiz/" + SDK.Storage.load()
+            })
+    },
+
         Storage:
             {
                 prefix: "DøkQuizSDK",

@@ -4,14 +4,14 @@
 
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/newquiz.css">
     <link rel="stylesheet" href="lib/css/bootstrap.lumen.min.css">
 
     <meta charset="UTF-8">
-    <title>My Profile</title>
+    <title>New Quiz</title>
 
 </head>
 <body>
-
 
 <div class="container">
 
@@ -31,25 +31,23 @@
         </nav>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="page-header"></div>
-        </div>
+    <div class="page-header">
+        <h1>Course overview</h1>
     </div>
-
-
+    <table class="table">
+        <thead>
+        <th>Course</th>
+        </thead>
+        <tbody id="courseTableBody">
+        </tbody>
+    </table>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted"> 2017 © All rights reserved - DøkQuiz</p>
-    </div>
-</footer>
 
 <script src="lib/js/jquery-3.2.1.js"></script>
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
-<script src="js/profile.js"></script>
+<script src="js/quizview.js"></script>
+
 
 </body>
 </html>
