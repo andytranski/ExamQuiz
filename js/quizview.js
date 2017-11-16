@@ -32,21 +32,46 @@ $(document).ready(() => {
 
 
         $.each(quiz, function (key, val) {
-            console.log(quiz[key].quizDescription)
-            console.log(quiz[key].quizTitle)
             var tr = '<tr>';
             tr += '<td>' + quiz[key].createdBy + '</td>';
             tr += '<td>' + quiz[key].quizTitle + '</td>';
             tr += '<td>' + quiz[key].quizDescription + '</td>';
             tr += '<td>' + quiz[key].questionCount + '</td>';
-            tr += '<td><button class="courseButton btn btn-primary pull-left" data-key="' + (key + 1) + '">Questions</button></td>';
+            tr += '<td><button class="quizButton btn btn-primary pull-left" data-key="' + (key + 1) + '">Questions</button></td>';
+            tr += '<td><button class="btn btn-warning" type="button"> <span class="glyphicon glyphicon-trash"></span> </button></td>';
             tr += '</tr>';
             $quizTableBody.append(tr);
         });
 
-        $('button.courseButton').on('click', function () {
-            var name = $(this).closest("tr").find("td:eq(0)").text();
+        $('button.quizButton').on('click', function () {
+            var name = $(this).closest("tr").find("td:eq(1)").text();
             console.log(name)
+
+            for (var i = 0; i < quiz.length; i++) {
+                if (name === quiz[i].quizTitle) {
+                    SDK.Storage.persist("chosenQuiz", quiz[i]);
+                    SDK.loadQuestions((err, question) => {
+                        if (err) throw err;
+                        const questions = JSON.parse(question)
+                        console.log(questions)
+
+                        $('#quizModal').removeData("modal").modal({backdrop: 'static', keyboard: false})
+                        $('#quizModal').modal('show');
+
+                        var $questionTableBody = $("#questionTableBody");
+                        $.each(questions, function (key, val) {
+                            var tr = '<tr>';
+                            tr += '<td >' + questions[key].question + '</td>';
+                            tr += '</tr>';
+                            $questionTableBody.append(tr);
+
+                        });
+                        $("#dismissButton").on("click", () => {
+                            $questionTableBody.empty();
+                        });
+                    })
+                }
+            }
         });
 
 

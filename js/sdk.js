@@ -140,6 +140,22 @@ const SDK = {
             });
         },
 
+        loadQuestions: (cb) => {
+            const chosenQuiz = SDK.Storage.load("chosenQuiz");
+            const quizId = chosenQuiz.quizId;
+            SDK.request({
+                method: "GET",
+                url: "/question/" + quizId,
+                headers: {
+                    authorization: SDK.Storage.load("Token")
+                },
+            }, (err, question) => {
+                if (err) return cb(err);
+                cb(null, question)
+            });
+        },
+
+
         createQuestion: (question, questionToQuizId, callback) => {
             SDK.request({
                 data: {

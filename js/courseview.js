@@ -31,7 +31,7 @@ $(document).ready(() => {
         $.each(course, function (key, val) {
             var tr = '<tr>';
             tr += '<td >' + course[key].courseTitle + '</td>';
-            tr += '<td><button class="courseButton btn btn-primary pull-left" data-key="' + (key + 1) + '">View quiz</button></td>';
+            tr += '<td> <button class="courseButton btn btn-primary pull-left" data-key="' + (key + 1) + '">View quiz</button></td>';
             tr += '</tr>';
             $courseTableBody.append(tr);
         });

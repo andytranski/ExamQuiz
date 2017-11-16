@@ -143,11 +143,14 @@ $(document).ready(() => {
 
 
                 });
+                $("#saveChangesButton").click(() => {
+                    window.location.href = "courseview.html"
 
-            }
+                });
+            };
+
         });
 
+
     });
-
-
 });
