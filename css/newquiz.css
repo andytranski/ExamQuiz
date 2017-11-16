@@ -6,3 +6,8 @@
     resize: none;
     height: 100px;
 }
+
+#question {
+    resize: none;
+    height: 150px;
+}

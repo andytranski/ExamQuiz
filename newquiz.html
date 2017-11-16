@@ -15,6 +15,46 @@
 
 <div class="container">
 
+    <div class="modal fade bd-example-modal-lg" id="questionModal" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title"></h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="question">Question</label>
+                            <textarea type="textarea" class="form-control" id="question" placeholder="Question"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="correct">Correct answer</label>
+                            <input type="text" class="form-control" id="correct" placeholder="Correct answer">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="wrong1">Wrong answer 1</label>
+                            <input type="text" class="form-control" id="wrong1" placeholder="Wrong answer 1">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="wrong2">Wrong answer 2</label>
+                            <input type="text" class="form-control" id="wrong2" placeholder="Wrong answer 2">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="wrong3">Wrong answer 3</label>
+                            <input type="text" class="form-control" id="wrong3" placeholder="Wrong answer 3">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="addQuestionButton">Save changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row" id="nav-container">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -44,7 +84,8 @@
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label" for="quizDescription">Description</label>
-                <textarea type="textarea" class="form-control" id="quizDescription" placeholder="Description"></textarea>
+                <textarea type="textarea" class="form-control" id="quizDescription"
+                          placeholder="Description"></textarea>
             </div>
 
             <div class="form-group">

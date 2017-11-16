@@ -140,6 +140,26 @@ const SDK = {
             });
         },
 
+        createQuestion: (question, questionToQuizId, callback) => {
+            SDK.request({
+                data: {
+                    question: question,
+                    questionToQuizId: questionToQuizId
+                },
+                url: "/question",
+                method: "POST",
+                headers: {
+                    authorization: SDK.Storage.load("Token"),
+                }
+            }, (err, data) => {
+                if (err) return callback(err);
+
+                callback(null, data);
+            })
+        },
+
+
+
         Storage:
             {
                 prefix: "DøkQuizSDK",

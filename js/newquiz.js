@@ -51,22 +51,46 @@ $(document).ready(() => {
             }
         }
 
-           SDK.createQuiz(createdBy, questionCount, quizTitle, quizDescription, courseId, (err, data) => {
-                if (err && err.xhr.status == 400) {
-                    $(".form-group").addClass("Client fail");
-                }
-                else if (err) {
-                    console.log("Error")
-                } else {
-                    $("#quizTitle").val('');
-                    $("#quizDescription").val('');
-                    $("#sell").val($("#sell option:first").val());
-                    window.alert("New quiz added");
+        SDK.createQuiz(createdBy, questionCount, quizTitle, quizDescription, courseId, (err, data) => {
+            if (err && err.xhr.status == 400) {
+                $(".form-group").addClass("Client fail");
+            }
+            else if (err) {
+                console.log("Error")
+            } else {
+                $("#quizTitle").val('');
+                $("#quizDescription").val('');
+                $("#sell").val($("#sell option:first").val());
+
+                $('#questionModal').modal('show');
+                var i = 1;
+                $(".modal-title").html(`<h1>Question ${i}</h1>`);
+                var newQuiz = JSON.parse(data);
+
+                $("#addQuestionButton").click(() => {
+                    const createdQuestion = $("#question").val();
+                    const questionToQuizId = newQuiz.quizId;
+
+                    SDK.createQuestion(createdQuestion, questionToQuizId, (err, data) => {
+                        if (err && err.xhr.status == 400) {
+                            $(".form-group").addClass("Client fail");
+                        }
+                        else if (err) {
+                            console.log("Error")
+                        } else {
+                            $("#question").val("");
+                            $(".modal-title").html(`<h1>Question ${++i}</h1>`);
+
+                        }
+                    });
 
 
-                }
-            });
+                });
 
+            }
         });
 
     });
+
+
+});
