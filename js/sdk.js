@@ -140,6 +140,22 @@ const SDK = {
             });
         },
 
+        deleteQuiz: (cb) => {
+            const chosenQuiz = SDK.Storage.load("chosenQuiz")
+            const quizId = chosenQuiz.quizId;
+            SDK.request({
+                method: "DELETE",
+                url: "/quiz/" + quizId,
+                headers: {
+                    authorization: SDK.Storage.load("Token")
+                },
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data)
+            });
+
+        },
+
         loadQuestions: (cb) => {
             const chosenQuiz = SDK.Storage.load("chosenQuiz");
             const quizId = chosenQuiz.quizId;
