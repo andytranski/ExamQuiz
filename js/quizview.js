@@ -38,7 +38,7 @@ $(document).ready(() => {
             tr += '<td>' + quiz[key].quizDescription + '</td>';
             tr += '<td>' + quiz[key].questionCount + '</td>';
             tr += '<td><button class="quizButton btn btn-primary pull-left" data-key="' + (key) + '">Questions</button></td>';
-            tr += '<td><button class="deleteButton btn btn-warning pull-left" data-key="' + (key) + '"><span class="glyphicon glyphicon-trash"></span> </button></td>';
+            tr += '<td><button class="deleteButton btn btn-danger pull-left" data-key="' + (key) + '" style="margin-left: -110px;"><span class="glyphicon glyphicon-trash"></span> </button></td>';
             tr += '</tr>';
             key + 1;
             $quizTableBody.append(tr);
