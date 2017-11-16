@@ -11,3 +11,15 @@
     resize: none;
     height: 150px;
 }
+
+.question-added {
+    width: 150px;
+    text-align: left;
+    border-radius: 3px;
+}
+
+
+#text {
+    color: black;
+
+}

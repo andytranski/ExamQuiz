@@ -158,6 +158,23 @@ const SDK = {
             })
         },
 
+        createOption: (option, optionToQuestionId, isCorrect, callback) => {
+            SDK.request({
+                data: {
+                    option: option,
+                    optionToQuestionId: optionToQuestionId,
+                    isCorrect: isCorrect
+                },
+                url: "/option",
+                method: "POST",
+                headers: {
+                    authorization: SDK.Storage.load("Token"),
+                }
+            }, (err, data) => {
+                if (err) return callback(err);
+                callback(null, data);
+            })
+        },
 
 
         Storage:

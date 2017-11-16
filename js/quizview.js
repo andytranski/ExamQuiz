@@ -19,13 +19,17 @@ $(document).ready(() => {
         })
     });
 
+
     SDK.loadQuizzes((err, quiz) => {
-        if(err) throw err;
+        if (err) throw err;
         const course = SDK.Storage.load("chosenCourse")
         var quiz = JSON.parse(quiz);
         $(".page-header").html(`<h1>${course.courseTitle}</h1>`);
 
         var $quizTableBody = $("#quizTableBody");
+
+        $("#quizTableBody")
+
 
         $.each(quiz, function (key, val) {
             console.log(quiz[key].quizDescription)
@@ -35,8 +39,16 @@ $(document).ready(() => {
             tr += '<td>' + quiz[key].quizTitle + '</td>';
             tr += '<td>' + quiz[key].quizDescription + '</td>';
             tr += '<td>' + quiz[key].questionCount + '</td>';
+            tr += '<td><button class="courseButton btn btn-primary pull-left" data-key="' + (key + 1) + '">Questions</button></td>';
+            tr += '</tr>';
             $quizTableBody.append(tr);
         });
-    })
 
+        $('button.courseButton').on('click', function () {
+            var name = $(this).closest("tr").find("td:eq(0)").text();
+            console.log(name)
+        });
+
+
+    });
 });

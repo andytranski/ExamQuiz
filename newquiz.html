@@ -19,15 +19,16 @@
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h1 class="modal-title"></h1>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="question-added"></div>
                     <div class="modal-body">
+
                         <div class="form-group">
                             <label class="col-lg-2 control-label" for="question">Question</label>
-                            <textarea type="textarea" class="form-control" id="question" placeholder="Question"></textarea>
+                            <textarea type="textarea" class="form-control" id="question"
+                                      placeholder="Question"></textarea>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2 control-label" for="correct">Correct answer</label>
@@ -47,7 +48,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="addQuestionButton">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="addQuestionButton">Add question</button>
+                        <button type="button" class="btn btn-primary" id="saveChangesButton">Save changes</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
