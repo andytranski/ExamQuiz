@@ -27,9 +27,9 @@ $(document).ready(() => {
                             var myUser = JSON.parse(data)
                             var currentUser = myUser.currentUser;
                             if(currentUser.type === 1) {
-                                window.location.href = "profile.html";
+                                window.location.href = "courseview.html";
                             } else {
-                                window.alert("Only admin permission atm")
+                                window.location.href ="profile.html"
                             }
 
                         }
