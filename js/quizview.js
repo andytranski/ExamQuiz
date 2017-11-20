@@ -99,7 +99,6 @@ $(document).ready(() => {
             });
         });
     } else {
-
         SDK.loadQuizzes((err, quiz) => {
             $("#tabs").html("<li><a href=\"usercourseview.html\">All quiz</a></li>");
 
@@ -136,26 +135,9 @@ $(document).ready(() => {
                 for (var i = 0; i < quiz.length; i++) {
                     if (name === quiz[i].quizTitle) {
                         SDK.Storage.persist("chosenQuiz", quiz[i]);
-                        SDK.loadQuestions((err, question) => {
-                            if (err) throw err;
-                            const questions = JSON.parse(question)
-                            console.log(questions)
 
-                            $('#quizModal').removeData("modal").modal({backdrop: 'static', keyboard: false})
-                            $('#quizModal').modal('show');
+                        window.location.href = "playquiz.html";
 
-                            var $questionTableBody = $("#questionTableBody");
-                            $.each(questions, function (key, val) {
-                                var tr = '<tr>';
-                                tr += '<td >' + questions[key].question + '</td>';
-                                tr += '</tr>';
-                                $questionTableBody.append(tr);
-
-                            });
-                            $("#dismissButton").on("click", () => {
-                                $questionTableBody.empty();
-                            });
-                        })
                     }
                 }
             });
