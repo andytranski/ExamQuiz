@@ -136,7 +136,7 @@ $(document).ready(() => {
                     if (name === quiz[i].quizTitle) {
                         SDK.Storage.persist("chosenQuiz", quiz[i]);
 
-                        window.location.href = "playquiz.html";
+                        window.location.href = "startquiz.html";
 
                     }
                 }

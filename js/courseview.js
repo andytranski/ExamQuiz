@@ -26,6 +26,7 @@ $(document).ready(() => {
         //SDK.Storage.remove("chosenCourse");
 
         var $courseTableBody = $("#courseTableBody");
+        console.log(course)
 
         $.each(course, function (key, val) {
             var tr = '<tr>';

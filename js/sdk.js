@@ -208,6 +208,19 @@ const SDK = {
             })
         },
 
+    loadOptions: (questionId, cb) => {
+        SDK.request({
+            method: "GET",
+            url: "/option/" + questionId,
+            headers: {
+                authorization: SDK.Storage.load("Token")
+            },
+        }, (err, options) => {
+            if (err) return cb(err);
+            cb(null, options)
+        });
+    },
+
 
         Storage:
             {
@@ -260,5 +273,4 @@ const SDK = {
                     return decrypt;
                 }
             },
-    }
-;
+    };

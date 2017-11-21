@@ -7,8 +7,8 @@
 }
 
 #playQuizButton {
-    margin:auto;
-    display:block;
+    margin: auto;
+    display: block;
     width: 200px;
     height: 50px;
 
@@ -21,3 +21,55 @@
     -o-transition: background-color 0.3s ease-out;
     transition: background-color 0.3s ease-out;
 }
+
+#optionTableBody .btn {
+    width: 70%;
+    margin: auto;
+    display: block;
+    width: 700px;
+    height: 50px;
+    text-align: left;
+    opacity: 0.8;
+}
+
+#optionTableBody .btn.btn-primary:hover {
+    opacity: 1;
+    -webkit-transition: background-color 0.3s ease-out;
+    -moz-transition: background-color 0.3s ease-out;
+    -o-transition: background-color 0.3s ease-out;
+    transition: background-color 0.3s ease-out;
+}
+
+#optionTableBody .btn.btn-success:hover {
+    opacity: 1;
+    -webkit-transition: background-color 0.3s ease-out;
+    -moz-transition: background-color 0.3s ease-out;
+    -o-transition: background-color 0.3s ease-out;
+    transition: background-color 0.3s ease-out;
+}
+
+#optionTableBody .btn.btn-danger:hover {
+    opacity: 1;
+    -webkit-transition: background-color 0.3s ease-out;
+    -moz-transition: background-color 0.3s ease-out;
+    -o-transition: background-color 0.3s ease-out;
+    transition: background-color 0.3s ease-out;
+}
+
+.modal-title {
+    order: 2;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.title-container {
+    width: 700px;
+    text-align: center;
+    align-items: center;
+    display: block;
+    margin: auto;
+    font-size: 20px;
+
+}
+
+
