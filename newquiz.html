@@ -74,47 +74,48 @@
         </nav>
     </div>
 
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="page-header">
-                <h1>Add quiz</h1>
-            </div>
-            <p id="emptyError"></p>
-            <div class="form-group">
-                <label class="col-lg-2 control-label" for="quizTitle">Title</label>
-                <input type="text" class="form-control" id="quizTitle" placeholder="Title">
-            </div>
-            <div class="form-group">
-                <label class="col-lg-2 control-label" for="quizDescription">Description</label>
-                <textarea type="textarea" class="form-control" id="quizDescription"
-                          placeholder="Description"></textarea>
+    <div class="col-sm-6 col-sm-offset-3" id="test">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="page-header">
+                    <h1>Add quiz</h1>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="quizTitle">Title</label>
+                    <input type="text" class="form-control" id="quizTitle" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="quizDescription">Description</label>
+                    <textarea type="textarea" class="form-control" id="quizDescription"
+                              placeholder="Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="sell">Choose course:</label>
+                    <select class="form-control" id=sell>
+                    </select>
+                </div>
+                    <button style="margin-bottom: 40px" class="btn btn-primary pull-right" id="addQuizButton">Add
+                    </button>
+                    <button style="margin-bottom: 40px" class="btn btn-primary pull-right" id="clearButton">Clear
+                    </button>
             </div>
 
-            <div class="form-group">
-                <label for="sell">Choose course:</label>
-                <select class="form-control" id=sell>
-                </select>
-            </div>
+        </div>
+        <div>
 
-            <button style="margin-bottom: 40px" class="btn btn-primary pull-left" id="addQuizButton">Add
-            </button>
-            <button style="margin-bottom: 40px" class="btn btn-primary pull-left" id="clearButton">Clear</button>
         </div>
 
-    </div>
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted"> 2017 © All rights reserved - DøkQuiz</p>
+            </div>
+        </footer>
 
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted"> 2017 © All rights reserved - DøkQuiz</p>
-    </div>
-</footer>
-
-<script src="lib/js/jquery-3.2.1.js"></script>
-<script src="lib/js/bootstrap.js"></script>
-<script src="js/sdk.js"></script>
-<script src="js/newquiz.js"></script>
+        <script src="lib/js/jquery-3.2.1.js"></script>
+        <script src="lib/js/bootstrap.js"></script>
+        <script src="js/sdk.js"></script>
+        <script src="js/newquiz.js"></script>
 
 
 </body>

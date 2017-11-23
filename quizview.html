@@ -13,34 +13,33 @@
 </head>
 <body>
 
-<div class="container">
+<div class="modal fade bd-example-modal-lg" id="quizModal" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg" id="test">
+        <div class="modal-content">
 
-    <div class="modal fade bd-example-modal-lg" id="quizModal" tabindex="-1" role="dialog"
-         aria-labelledby="myLargeModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-lg" id="test">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h1 class="modal-title"></h1>
-                    <div class="question-added"></div>
-                    <div class="modal-body">
-                        <table class="table">
-                            <thead>
-                            <th>Question</th>
-                            </thead>
-                            <tbody id="questionTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="dismissButton" type="button" class="btn btn-primary" data-dismiss="modal">Close
-                        </button>
-                    </div>
+            <div class="modal-header">
+                <h1 class="modal-title"></h1>
+                <div class="question-added"></div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                        <th>Question</th>
+                        </thead>
+                        <tbody id="questionTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="dismissButton" type="button" class="btn btn-primary" data-dismiss="modal">Close
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+<div class="container">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -60,6 +59,10 @@
         <tbody id="quizTableBody">
         </tbody>
     </table>
+
+    <div class="row" id="quizList">
+
+    </div>
 
     <footer class="footer">
         <div class="container">

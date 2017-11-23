@@ -24,77 +24,86 @@ $(document).ready(() => {
 
         SDK.loadQuizzes((err, quiz) => {
             if (err) throw err;
-
-            $("#tablehead").append("<thead>\n" +
-                "            <th>Created By</th>\n" +
-                "            <th>Quiz Title</th>\n" +
-                "            <th>Quiz Description</th>\n" +
-                "            <th>Question Count</th>\n" +
-                "            </thead>")
-
             const course = SDK.Storage.load("chosenCourse")
-            var quiz = JSON.parse(quiz);
+            var quizzes = JSON.parse(quiz);
             $(".page-header").html(`<h1>${course.courseTitle}</h1>`);
 
-            var $quizTableBody = $("#quizTableBody");
+            var $quizList = $("#quizList");
 
-            $("#quizTableBody")
+            quizzes.forEach(quiz => {
+                const quizHtml = `
+        <div class="col-lg-4 quiz-container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${quiz.quizTitle}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-8">
+                      <dl>
+                        <dt>Quiz</dt>
+                        <dd>${quiz.quizTitle}</dd>
+                        <dt>Quiz ID</dt>
+                        <dd>${quiz.quizId}</dd>
+                        <dt>Created By</dt>
+                        <dd>${quiz.createdBy}</dd>
+                         <dt>Questions</dt>
+                        <dd>${quiz.questionCount}</dd>
+                      </dl>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-8 text-right">
+                            <button class="btn btn-primary quiz-button" data-quiz-id="${quiz.quizId}">Choose</button>
+                            <button class="btn btn-danger delete-button" data-quiz-id="${quiz.quizId}"><span class="glyphicon glyphicon-trash"></span> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
 
-
-            $.each(quiz, function (key, val) {
-                var tr = '<tr>';
-                tr += '<td>' + quiz[key].createdBy + '</td>';
-                tr += '<td>' + quiz[key].quizTitle + '</td>';
-                tr += '<td>' + quiz[key].quizDescription + '</td>';
-                tr += '<td>' + quiz[key].questionCount + '</td>';
-                tr += '<td><button class="quizButton btn btn-primary pull-left" data-key="' + (key) + '">Questions</button></td>';
-                tr += '<td><button class="deleteButton btn btn-danger pull-left" data-key="' + (key) + '" style="margin-left: -110px;"><span class="glyphicon glyphicon-trash"></span> </button></td>';
-                tr += '</tr>';
-                key + 1;
-                $quizTableBody.append(tr);
+                $quizList.append(quizHtml);
             });
 
-            $('button.quizButton').on('click', function () {
-                var name = $(this).closest("tr").find("td:eq(1)").text();
+            $('.quiz-button').on('click', function () {
+                const thisQuizId = $(this).data("quiz-id");
+                const quiz = quizzes.find(q => q.quizId === thisQuizId);
 
-                for (var i = 0; i < quiz.length; i++) {
-                    if (name === quiz[i].quizTitle) {
-                        SDK.Storage.persist("chosenQuiz", quiz[i]);
-                        SDK.loadQuestions((err, question) => {
-                            if (err) throw err;
-                            const questions = JSON.parse(question)
-                            console.log(questions)
+                SDK.Storage.persist("chosenQuiz", quiz);
+                SDK.loadQuestions((err, question) => {
+                    if (err) throw err;
+                    const questions = JSON.parse(question)
+                    console.log(questions)
 
-                            $('#quizModal').removeData("modal").modal({backdrop: 'static', keyboard: false})
-                            $('#quizModal').modal('show');
+                    $('#quizModal').removeData("modal").modal({backdrop: 'static', keyboard: false})
+                    $('#quizModal').modal('show');
 
-                            var $questionTableBody = $("#questionTableBody");
-                            $.each(questions, function (key, val) {
-                                var tr = '<tr>';
-                                tr += '<td >' + questions[key].question + '</td>';
-                                tr += '</tr>';
-                                $questionTableBody.append(tr);
+                    var $questionTableBody = $("#questionTableBody");
+                    $.each(questions, function (key, val) {
+                        var tr = '<tr>';
+                        tr += '<td >' + questions[key].question + '</td>';
+                        tr += '</tr>';
+                        $questionTableBody.append(tr);
 
-                            });
-                            $("#dismissButton").on("click", () => {
-                                $questionTableBody.empty();
-                            });
-                        })
-                    }
-                }
+                    });
+                    $("#dismissButton").on("click", () => {
+                        $questionTableBody.empty();
+                    });
+                })
             });
+            $('.delete-button').on('click', function () {
+                console.log("Hey")
+                const thisQuizId = $(this).data("quiz-id");
+                const quiz = quizzes.find(q => q.quizId === thisQuizId);
 
-            $("button.deleteButton").on('click', function () {
-                var name = $(this).closest("tr").find("td:eq(1)").text();
-                console.log(name)
-                for (var i = 0; i < quiz.length; i++) {
-                    if (name === quiz[i].quizTitle) {
-                        SDK.Storage.persist("chosenQuiz", quiz[i]);
-                        SDK.deleteQuiz((err, data) => {
-                            location.reload();
-                        });
-                    }
-                }
+                SDK.Storage.persist("chosenQuiz", quiz);
+                SDK.deleteQuiz((err, data) => {
+                    location.reload();
+                });
+
 
             });
         });
@@ -103,43 +112,54 @@ $(document).ready(() => {
             $("#tabs").html("<li><a href=\"usercourseview.html\">All quiz</a></li>");
 
             if (err) throw err;
-            $("#tablehead").append("<thead>\n" +
-                "            <th>Created By</th>\n" +
-                "            <th>Quiz Title</th>\n" +
-                "            <th>Quiz Description</th>\n" +
-                "            </thead>")
 
             const course = SDK.Storage.load("chosenCourse")
-            var quiz = JSON.parse(quiz);
+            var quizzes = JSON.parse(quiz);
             $(".page-header").html(`<h1>${course.courseTitle}</h1>`);
 
-            var $quizTableBody = $("#quizTableBody");
+            var $quizList = $("#quizList");
 
-            $("#quizTableBody")
+            quizzes.forEach(quiz => {
+                const quizHtml = `
+        <div class="col-lg-4 quiz-container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${quiz.quizTitle}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-8">
+                      <dl>
+                        <dt>Quiz</dt>
+                        <dd>${quiz.quizTitle}</dd>
+                        <dt>Created By</dt>
+                        <dd>${quiz.createdBy}</dd>
 
+                         <dt>Questions</dt>
+                        <dd>${quiz.questionCount}</dd>
+                      </dl>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-8 text-right">
+                            <button class="btn btn-primary quiz-button" data-quiz-id="${quiz.quizId}">Choose</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
 
-            $.each(quiz, function (key, val) {
-                var tr = '<tr>';
-                tr += '<td>' + quiz[key].createdBy + '</td>';
-                tr += '<td>' + quiz[key].quizTitle + '</td>';
-                tr += '<td>' + quiz[key].quizDescription + '</td>';
-                tr += '<td><button class="quizButton btn btn-primary pull-left" data-key="' + (key) + '">Take quiz!</button></td>';
-                tr += '</tr>';
-                key + 1;
-                $quizTableBody.append(tr);
+                $quizList.append(quizHtml);
             });
 
-            $('button.quizButton').on('click', function () {
-                var name = $(this).closest("tr").find("td:eq(1)").text();
-
-                for (var i = 0; i < quiz.length; i++) {
-                    if (name === quiz[i].quizTitle) {
-                        SDK.Storage.persist("chosenQuiz", quiz[i]);
-
-                        window.location.href = "startquiz.html";
-
-                    }
-                }
+            $('.quiz-button').on('click', function () {
+                const thisQuizId = $(this).data("quiz-id");
+                const quiz = quizzes.find(q => q.quizId === thisQuizId);
+                SDK.Storage.persist("chosenQuiz", quiz);
+                window.location.href = "startquiz.html";
             });
 
         });

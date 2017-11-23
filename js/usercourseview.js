@@ -21,30 +21,50 @@ $(document).ready(() => {
 
     SDK.loadCourses((err, course) => {
         if (err) throw err;
+        const $courseList = $("#courseList");
 
-        var course = JSON.parse(course);
+        var courses = JSON.parse(course);
         $(".page-header").html(`<h1>Course</h1>`);
-        //SDK.Storage.remove("chosenCourse");
 
-        var $courseTableBody = $("#courseTableBody");
+        courses.forEach(course => {
+            const courseHtml = `
+        <div class="col-lg-4 book-container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${course.courseTitle}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-4">
+                    </div>
+                <div class="col-lg-8">
+                      <dl>
+                        <dt>Course</dt>
+                        <dd>${course.courseTitle}</dd>
+                        <dt>Course ID</dt>
+                        <dd>${course.courseId}</dd>
+                      </dl>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-4 price-label">
+                        </div>
+                        <div class="col-lg-8 text-right">
+                            <button class="btn btn-primary course-button" data-course-id="${course.courseId}">Go to</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+            $courseList.append(courseHtml);
 
-        $.each(course, function (key, val) {
-            var tr = '<tr>';
-            tr += '<td >' + course[key].courseTitle + '</td>';
-            tr += '<td> <button class="courseButton btn btn-primary pull-left" data-key="' + (key + 1) + '">View quiz</button></td>';
-            tr += '</tr>';
-            $courseTableBody.append(tr);
         });
 
-        $('button.courseButton').on('click', function () {
-            var name = $(this).closest("tr").find("td:eq(0)").text();
+        $('.course-button').on('click', function () {
+            const thisCourseId = $(this).data("course-id");
+            const course = courses.find(c => c.courseId === thisCourseId);
+            SDK.Storage.persist("chosenCourse", course)
             window.location.href = "quizview.html";
-
-            for (var i = 0; i < course.length; i++) {
-                if (name === course[i].courseTitle) {
-                    SDK.Storage.persist("chosenCourse", course[i])
-                }
-            }
 
         });
 

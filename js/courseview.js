@@ -17,30 +17,11 @@ $(document).ready(() => {
             }
         })
     });
-    /*
-
-    SDK.loadCourses((err, course) => {
-        if (err) throw err;
-
-        var course = JSON.parse(course);
-        $(".page-header").html(`<h1>Course</h1>`);
-        //SDK.Storage.remove("chosenCourse");
-
-        var $courseTableBody = $("#courseTableBody");
-        $.each(course, function (key, val) {
-            var tr = '<tr>';
-            tr += '<td >' + course[key].courseTitle + '</td>';
-            tr += '<td> <button class="courseButton btn btn-primary pull-left" data-key="' + (key + 1) + '">View quiz</button></td>';
-            tr += '</tr>';
-            $courseTableBody.append(tr);
-        });
-*/
 
     SDK.loadCourses((err, course) => {
         const $courseList = $("#courseList");
         if (err) throw err;
         var courses = JSON.parse(course);
-        console.log(courses);
 
         courses.forEach(course => {
             const courseHtml = `
@@ -66,7 +47,7 @@ $(document).ready(() => {
                         <div class="col-lg-4 price-label">
                         </div>
                         <div class="col-lg-8 text-right">
-                            <button class="btn btn-primary purchase-button">Go to</button>
+                            <button class="btn btn-primary course-button" data-course-id="${course.courseId}">Go to</button>
                         </div>
                     </div>
                 </div>
@@ -75,15 +56,12 @@ $(document).ready(() => {
             $courseList.append(courseHtml);
 
         });
-        $('button.btn').on('click', function () {
-            var name = $(this).closest("tr").find("td:eq(0)").text();
+        $('.course-button').on('click', function () {
+            const thisCourseId = $(this).data("course-id");
+            const course = courses.find(c => c.courseId === thisCourseId);
+            SDK.Storage.persist("chosenCourse", course)
             window.location.href = "quizview.html";
 
-            for (var i = 0; i < course.length; i++) {
-                if (name === course[i].courseTitle) {
-                    SDK.Storage.persist("chosenCourse", course[i])
-                }
-            }
 
         });
 
