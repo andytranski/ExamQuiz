@@ -2,45 +2,36 @@
 <html lang="en">
 <head>
 
-    <link rel="stylesheet" href="lib/css/bootstrap.css">
-    <link rel="stylesheet" href="css/newquiz.css">
     <link rel="stylesheet" href="lib/css/bootstrap.lumen.min.css">
     <link rel="stylesheet" href="css/main.css">
 
     <meta charset="UTF-8">
-    <title>New Quiz</title>
+    <title>Course view</title>
 
 </head>
 <body>
 
 <div class="container">
-
-    <div class="row" id="nav-container">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Døk Quiz</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li><a href="newquiz.html">New quiz</a></li>
-                    <li><a href="courseview.html">All quiz</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                </ul>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Døk Quiz</a>
             </div>
-        </nav>
-    </div>
+            <ul class="nav navbar-nav">
+                <li><a href="newquiz.html">New quiz</a></li>
+                <li><a href="courseview.html">All quiz</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+    </nav>
 
-    <div class="page-header">
-    </div>
 
-    <table class="table">
-        <thead>
-        <th>Course</th>
-        </thead>
-        <tbody id="courseTableBody">
-        </tbody>
-    </table>
+    <div class="page-header"></div>
+
+    <div class="row" id="courseList">
+
+    </div>
 
 </div>
 

@@ -17,6 +17,7 @@ $(document).ready(() => {
             }
         })
     });
+    /*
 
     SDK.loadCourses((err, course) => {
         if (err) throw err;
@@ -26,8 +27,6 @@ $(document).ready(() => {
         //SDK.Storage.remove("chosenCourse");
 
         var $courseTableBody = $("#courseTableBody");
-        console.log(course)
-
         $.each(course, function (key, val) {
             var tr = '<tr>';
             tr += '<td >' + course[key].courseTitle + '</td>';
@@ -35,8 +34,48 @@ $(document).ready(() => {
             tr += '</tr>';
             $courseTableBody.append(tr);
         });
+*/
 
-        $('button.courseButton').on('click', function () {
+    SDK.loadCourses((err, course) => {
+        const $courseList = $("#courseList");
+        if (err) throw err;
+        var courses = JSON.parse(course);
+        console.log(courses);
+
+        courses.forEach(course => {
+            const courseHtml = `
+        <div class="col-lg-4 book-container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${course.courseTitle}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-4">
+                    </div>
+                <div class="col-lg-8">
+                      <dl>
+                        <dt>Course</dt>
+                        <dd>${course.courseTitle}</dd>
+                        <dt>Course ID</dt>
+                        <dd>${course.courseId}</dd>
+                      </dl>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-4 price-label">
+                        </div>
+                        <div class="col-lg-8 text-right">
+                            <button class="btn btn-primary purchase-button">Go to</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+            $courseList.append(courseHtml);
+
+        });
+        $('button.btn').on('click', function () {
             var name = $(this).closest("tr").find("td:eq(0)").text();
             window.location.href = "quizview.html";
 
@@ -48,7 +87,5 @@ $(document).ready(() => {
 
         });
 
-
     });
-
 });

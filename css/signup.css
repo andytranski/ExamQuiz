@@ -5,3 +5,11 @@
 #emptyError {
     color: red;
 }
+
+#buttonHolder {
+    height: 50px;
+}
+
+.alert {
+    width: 100%;
+}
