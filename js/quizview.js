@@ -137,10 +137,11 @@ $(document).ready(() => {
             });
         });
         //Show specific panel for user
-    } else {
+    } else if (currentUser.type === 2) {
         //Set the menu bar with user rights
         $("#tabs").html("<li><a href=\"usercourseview.html\">All quiz</a></li>");
         //SDK request to load quizzes
+
         SDK.loadQuizzes((err, quiz) => {
             if (err) throw err;
 
