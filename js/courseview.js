@@ -54,8 +54,8 @@ $(document).ready(() => {
             </div>
         </div>`;
             $courseList.append(courseHtml);
-
         });
+
         //Listener on course button
         $('.course-button').on('click', function () {
             /*
