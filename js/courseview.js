@@ -1,33 +1,31 @@
 $(document).ready(() => {
+    //Load current user object with id
     const currentUser = SDK.currentUser();
     const userId = currentUser.userId;
 
+    //Display logout button on menu
     $(".navbar-right").html(`
         <li><a href="#" id="logout-link">Log out</a></li>
     `);
 
-    $("#logout-link").click(() => {
-        SDK.logOut(userId, (err, data) => {
-            if (err && err.xhr.status == 401) {
-                $(".form-group").addClass("has-error");
-            } else {
-                window.location.href = "login.html";
-                SDK.Storage.remove("User")
-                SDK.Storage.remove("token")
-            }
-        })
-    });
-
+    //SDK request to load courses
     SDK.loadCourses((err, course) => {
+        //Save course list div as a constant
         const $courseList = $("#courseList");
         if (err) throw err;
-        var courses = JSON.parse(course);
 
+        /*
+        For every course object in the array a panel
+        will be added to the course list. The panel
+        consist of course title and button.
+         */
+        var courses = JSON.parse(course);
         courses.forEach(course => {
             const courseHtml = `
         <div class="col-lg-4 book-container">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                <!-- Use course title as header inside panel -->
                     <h3 class="panel-title">${course.courseTitle}</h3>
                 </div>
                 <div class="panel-body">
@@ -35,6 +33,7 @@ $(document).ready(() => {
                     </div>
                 <div class="col-lg-8">
                       <dl>
+                      <!-- Set the information about the course -->
                         <dt>Course</dt>
                         <dd>${course.courseTitle}</dd>
                         <dt>Course ID</dt>
@@ -47,6 +46,7 @@ $(document).ready(() => {
                         <div class="col-lg-4 price-label">
                         </div>
                         <div class="col-lg-8 text-right">
+                        <!-- Create button inside panel with course id reference --> 
                             <button class="btn btn-primary course-button" data-course-id="${course.courseId}">Go to</button>
                         </div>
                     </div>
@@ -56,7 +56,13 @@ $(document).ready(() => {
             $courseList.append(courseHtml);
 
         });
+        //Listener on course button
         $('.course-button').on('click', function () {
+            /*
+            Refer to the exact button clicked and save id.
+            Use find attribute to locate the id and save the
+            chosen course object with same id.
+             */
             const thisCourseId = $(this).data("course-id");
             const course = courses.find(c => c.courseId === thisCourseId);
             SDK.Storage.persist("chosenCourse", course)
@@ -66,4 +72,18 @@ $(document).ready(() => {
         });
 
     });
+    //Listener on logout button
+    $("#logout-link").click(() => {
+        SDK.logOut(userId, (err, data) => {
+            if (err && err.xhr.status == 401) {
+                $(".form-group").addClass("has-error");
+            } else {
+                //Clear the local storage upon log out
+                window.location.href = "login.html";
+                SDK.Storage.remove("User")
+                SDK.Storage.remove("token")
+            }
+        })
+    });
+
 });
