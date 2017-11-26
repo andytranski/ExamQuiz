@@ -1,31 +1,35 @@
 $(document).ready(() => {
-    $("#loginButton").click(() => {
 
+    //Listener on login button
+    $("#loginButton").click(() => {
+        //Save user input as let
         let username = $("#inputUsername").val();
         let password = $("#inputPassword").val();
 
+        //Verify that input isn't empty
         if (!username || !password) {
-            document.getElementById("error").innerHTML = "Information missing";
+            alert("no input");
         } else {
-            SDK.login(username, password, (err, data) => {
+            //SDK request to log in
+            SDK.login(username, password, (err, token) => {
                 if (err && err.xhr.status == 401) {
                     $(".form-group").addClass("Client fail");
-                    document.getElementById("error").innerHTML = "Wrong username or password";
                 }
                 else if (err) {
                     console.log("Error");
+                    //Verify that a token is created
                 } else if (SDK.Storage.load("Token") === null) {
                     $("#inputPassword").val('');
-                    document.getElementById("error").innerHTML = "No user found";
                 }
                 else {
+                    //SDK request to load current user
                     SDK.loadCurrentUser((err, data) => {
                         if (err && err.xhr.status == 401) {
                             $(".form-group").addClass("Client fail");
-                            document.getElementById("error").innerHTML = "Wrong username or password";
                         } else {
-                            var myUser = JSON.parse(data)
-                            var currentUser = myUser.currentUser;
+                            //Clarify user object type
+                            let myUser = JSON.parse(data)
+                            let currentUser = myUser.currentUser;
                             if(currentUser.type === 1) {
                                 window.location.href = "courseview.html";
                             } else {
@@ -41,7 +45,7 @@ $(document).ready(() => {
         }
 
     });
-
+    //Listener on sign up button
     $("#signUpButton").click(() => {
         window.location.href = "signup.html";
     });
