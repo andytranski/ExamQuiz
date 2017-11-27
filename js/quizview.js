@@ -59,7 +59,7 @@ $(document).ready(() => {
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-lg-4"></div>
-                        <div class="col-lg-8 text-right">
+                        <div class="col-lg-8 text-right style="height: 46px;">
                             <!-- Create buttons inside panel with course id reference --> 
                             <button class="btn btn-primary quiz-button" data-quiz-id="${quiz.quizId}">Choose</button>
                             <button class="btn btn-danger delete-button" data-quiz-id="${quiz.quizId}"><span class="glyphicon glyphicon-trash"></span> </button>

@@ -29,7 +29,6 @@ $(document).ready(() => {
 
                 } else {
                     var loadedQuestions = JSON.parse(questions);
-                    console.log(loadedQuestions)
                     //Nyt tomt array
                     questionTitle = [];
 
@@ -65,6 +64,9 @@ $(document).ready(() => {
                 });
                 $("#playAgainButton").click(() => {
                     window.location.href = "startquiz.html";
+                });
+                $("#correctViewButton").click(() => {
+                    window.location.href = "correctview.html";
                 });
 
                 //Hvis der er flere spørgsmål
@@ -120,7 +122,7 @@ $(document).ready(() => {
                 }
             });
             $("#dismissButton").click(() => {
-                    window.location.href = "quizview.html";
+                window.location.href = "quizview.html";
             });
         };
 

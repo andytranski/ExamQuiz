@@ -45,7 +45,7 @@ $(document).ready(() => {
                     <div class="row">
                         <div class="col-lg-4 price-label">
                         </div>
-                        <div class="col-lg-8 text-right">
+                        <div class="col-lg-8 text-right" style="height: 46px;">
                         <!-- Create button inside panel with course id reference --> 
                             <button class="btn btn-primary course-button" data-course-id="${course.courseId}">Go to</button>
                         </div>
