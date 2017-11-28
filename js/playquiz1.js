@@ -18,8 +18,8 @@ $(document).ready(() => {
 
         //Hente question og returnere id
         function loadQuestions() {
-            SDK.loadQuestions((err, questions) => {
-                if (questions === undefined) {
+            SDK.loadQuestions((err, loadedQuestions) => {
+                if (loadedQuestions === undefined) {
                     $("#playQuizButton").html('Return').click(() => {
                         window.location.href = "quizview.html"
                     });
@@ -28,7 +28,6 @@ $(document).ready(() => {
                     $(".description").html(`<h2 align="center">Oh no! No questions were found</h2>`);
 
                 } else {
-                    var loadedQuestions = JSON.parse(questions);
                     //Nyt tomt array
                     questionTitle = [];
 
@@ -81,8 +80,7 @@ $(document).ready(() => {
                         questionId = loadedQuestions[k].questionId;
                     }
                 }
-                SDK.loadOptions(questionId, (err, options) => {
-                    var loadedOptions = JSON.parse(options);
+                SDK.loadOptions(questionId, (err, loadedOptions) => {
 
                     $.each(loadedOptions, function (key, val) {
                         var tr = '<tr>';

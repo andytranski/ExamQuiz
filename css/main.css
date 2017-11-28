@@ -8,16 +8,33 @@ dd {
 }
 
 .footer {
-    position: fixed;
+    position: absolute;
     left: 0;
     bottom: 0;
+    height: 50px;
     width: 100%;
+    background-color: #7ab4d3;
+    -moz-box-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+    box-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+    margin-top: 100px;
+}
+.text-muted {
+    height:100%;
+    color: white;
+    vertical-align: center;
+
 }
 
 body {
     background-color: #EEF8F6;
+
+}
+html {
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 50px;
 }
 
-.book-container {
-}
+
 

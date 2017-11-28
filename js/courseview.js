@@ -5,11 +5,12 @@ $(document).ready(() => {
 
     //Display logout button on menu
     $(".navbar-right").html(`
+        <li><a href="profile.html" id="user-link">${currentUser.username}</a></li>
         <li><a href="#" id="logout-link">Log out</a></li>
     `);
 
     //SDK request to load courses
-    SDK.loadCourses((err, course) => {
+    SDK.loadCourses((err, courses) => {
         //Save course list div as a constant
         const $courseList = $("#courseList");
         if (err) throw err;
@@ -19,7 +20,6 @@ $(document).ready(() => {
         will be added to the course list. The panel
         consist of course title and button.
          */
-        var courses = JSON.parse(course);
         courses.forEach(course => {
             const courseHtml = `
         <div class="col-lg-4 book-container">

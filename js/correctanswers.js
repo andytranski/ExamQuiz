@@ -23,18 +23,14 @@ $(document).ready(() => {
 
     const $optionTableBodyCorrect = $("#optionTableBodyCorrect");
     var i = 0;
-    SDK.loadQuestions((err, questions) => {
-        let loadedQuestions = JSON.parse(questions);
+    SDK.loadQuestions((err, loadedQuestions) => {
         while (i < loadedQuestions.length) {
             var question = loadedQuestions[i].question;
             loadOptions(question);
 
             function loadOptions(question) {
-                SDK.loadOptions(loadedQuestions[i].questionId, (err, data) => {
-                    console.log(question);
+                SDK.loadOptions(loadedQuestions[i].questionId, (err, options) => {
                     $optionTableBodyCorrect.append(`<br><br><div class="title-container"><h3 class="modal-title">${question}</h3></div>`);
-
-                    var options = JSON.parse(data);
 
                     for (var z = 0; z < options.length; z++) {
                         if (options[z].isCorrect === 0) {

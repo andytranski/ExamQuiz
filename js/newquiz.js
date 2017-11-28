@@ -23,7 +23,6 @@ $(document).ready(() => {
         if (err && err.xhr.status == 401) {
             $(".form-group").addClass("Client fail");
         } else {
-            var courses = JSON.parse(courses);
             var option = "";
 
             SDK.Storage.persist("Courses", courses)
@@ -52,7 +51,7 @@ $(document).ready(() => {
                 }
             }
 
-            SDK.createQuiz(createdBy, questionCount, quizTitle, quizDescription, courseId, (err, data) => {
+            SDK.createQuiz(createdBy, questionCount, quizTitle, quizDescription, courseId, (err, newQuiz) => {
                 if (err && err.xhr.status == 400) {
                     $(".form-group").addClass("Client fail");
                 }
@@ -66,7 +65,6 @@ $(document).ready(() => {
                     $('#questionModal').modal('show');
                     var i = 1;
                     $(".modal-title").html(`<h1>Question ${i}</h1>`);
-                    var newQuiz = JSON.parse(data);
                     SDK.Storage.persist()
 
                     var questionCounter = 0;
@@ -75,7 +73,7 @@ $(document).ready(() => {
                         const createdQuestion = $("#question").val();
                         const questionToQuizId = newQuiz.quizId;
 
-                        SDK.createQuestion(createdQuestion, questionToQuizId, (err, data) => {
+                        SDK.createQuestion(createdQuestion, questionToQuizId, (err, newQuestion) => {
                             if (err && err.xhr.status == 400) {
                                 $(".form-group").addClass("Client fail");
                             }
@@ -87,17 +85,11 @@ $(document).ready(() => {
                                 $(".modal-title").html(`<h1>Question ${++i}</h1>`);
                                 $(".question-added").html(`<h4 id="text">Question added</h4>`);
 
-
-                                const newQuestion = JSON.parse(data);
                                 const optionToQuestionId = newQuestion.questionId;
                                 const correct = $("#correct").val();
-                                console.log(correct);
                                 const wrong1 = $("#wrong1").val();
-                                console.log(wrong1);
                                 const wrong2 = $("#wrong2").val();
-                                console.log(wrong2);
                                 const wrong3 = $("#wrong3").val();
-                                console.log(wrong3);
 
                                 var isCorrect = 1;
                                 SDK.createOption(correct, optionToQuestionId, isCorrect, (err, data) => {
@@ -151,14 +143,11 @@ $(document).ready(() => {
                 }
                 $("#saveChangesButton").click(() => {
                     SDK.updateQuestionCount(questionCounter, newQuiz.quizId, (err, data) => {
-                        window.location.href = "quizview.html"
+                        window.location.href = "quizview.html";
+                        let quizview;
+                        quizview.loadQuizzes(allCourses[i]);
                     });
 
-                });
-
-                $("#closeModalButton").click(() => {
-                    SDK.updateQuestionCount(questionCounter, newQuiz.quizId, (err, data) => {
-                    });
                 });
             });
         }

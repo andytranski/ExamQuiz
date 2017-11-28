@@ -17,7 +17,7 @@ const SDK = {
             dataType: "json",
             data: JSON.stringify(SDK.encrypt(JSON.stringify(options.data))),
             success: (data, status, xhr) => {
-                callback(null, SDK.decrypt(data), status, xhr);
+                callback(null, JSON.parse(SDK.decrypt(data)), status, xhr);
             },
             error: (xhr, status, errorThrown) => {
                 callback({xhr: xhr, status: status, error: errorThrown});
@@ -58,7 +58,7 @@ const SDK = {
         });
     },
 
-    loadCurrentUser: (cb) => {
+    loadCurrentUser: (callback) => {
         SDK.request({
             method: "GET",
             url: "/user/myuser",
@@ -66,9 +66,9 @@ const SDK = {
                 authorization: SDK.Storage.load("Token"),
             },
         }, (err, user) => {
-            if (err) return cb(err);
+            if (err) return callback(err);
             SDK.Storage.persist("User", user);
-            cb(null, user);
+            callback(null, user);
         });
     },
 
@@ -77,20 +77,20 @@ const SDK = {
         return loadedUser.currentUser;
     },
 
-    logOut: (userId, cb) => {
+    logOut: (userId, callback) => {
         SDK.request({
             method: "POST",
             url: "/user/logout",
             data: userId,
         }, (err, data) => {
-            if (err) return cb(err);
+            if (err) return callback(err);
 
-            cb(null, data);
+            callback(null, data);
         });
 
     },
 
-    loadCourses: (cb) => {
+    loadCourses: (callback) => {
         SDK.request({
             method: "GET",
             url: "/course",
@@ -98,8 +98,8 @@ const SDK = {
                 authorization: SDK.Storage.load("Token"),
             },
         }, (err, course) => {
-            if (err) return cb(err);
-            cb(null, course)
+            if (err) return callback(err);
+            callback(null, course)
 
         });
     },
@@ -134,13 +134,13 @@ const SDK = {
                 authorization: SDK.Storage.load("Token"),
             }
         }, (err, data) => {
-            if(err) return callback(err);
+            if (err) return callback(err);
 
             callback(null, data);
         })
     },
 
-    loadQuizzes: (cb) => {
+    loadQuizzes: (callback) => {
         const chosenCourse = SDK.Storage.load("chosenCourse");
         const courseId = chosenCourse.courseId;
         SDK.request({
@@ -150,12 +150,12 @@ const SDK = {
                 authorization: SDK.Storage.load("Token")
             },
         }, (err, quiz) => {
-            if (err) return cb(err);
-            cb(null, quiz)
+            if (err) return callback(err);
+            callback(null, quiz)
         });
     },
 
-    deleteQuiz: (cb) => {
+    deleteQuiz: (callback) => {
         const chosenQuiz = SDK.Storage.load("chosenQuiz")
         const quizId = chosenQuiz.quizId;
         SDK.request({
@@ -165,13 +165,13 @@ const SDK = {
                 authorization: SDK.Storage.load("Token")
             },
         }, (err, data) => {
-            if (err) return cb(err);
-            cb(null, data)
+            if (err) return callback(err);
+            callback(null, data)
         });
 
     },
 
-    loadQuestions: (cb) => {
+    loadQuestions: (callback) => {
         const chosenQuiz = SDK.Storage.load("chosenQuiz");
         const quizId = chosenQuiz.quizId;
         SDK.request({
@@ -181,8 +181,8 @@ const SDK = {
                 authorization: SDK.Storage.load("Token")
             },
         }, (err, question) => {
-            if (err) return cb(err);
-            cb(null, question)
+            if (err) return callback(err);
+            callback(null, question)
         });
     },
 
@@ -223,7 +223,7 @@ const SDK = {
         })
     },
 
-    loadOptions: (questionId, cb) => {
+    loadOptions: (questionId, callback) => {
         SDK.request({
             method: "GET",
             url: "/option/" + questionId,
@@ -231,8 +231,8 @@ const SDK = {
                 authorization: SDK.Storage.load("Token")
             },
         }, (err, options) => {
-            if (err) return cb(err);
-            cb(null, options)
+            if (err) return callback(err);
+            callback(null, options)
         });
     },
 

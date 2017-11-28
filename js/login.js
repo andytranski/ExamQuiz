@@ -28,8 +28,7 @@ $(document).ready(() => {
                             $(".form-group").addClass("Client fail");
                         } else {
                             //Clarify user object type
-                            let myUser = JSON.parse(data)
-                            let currentUser = myUser.currentUser;
+                            let currentUser = data.currentUser;
                             if(currentUser.type === 1) {
                                 window.location.href = "courseview.html";
                             } else {

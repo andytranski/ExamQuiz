@@ -5,6 +5,7 @@ $(document).ready(() => {
 
     //Display logout button on menu
     $(".navbar-right").html(`
+        <li><a href="profile.html" id="user-link">${currentUser.username}</a></li>
         <li><a href="#" id="logout-link">Log out</a></li>
     `);
 
@@ -15,12 +16,11 @@ $(document).ready(() => {
             "                    <li><a href=\"courseview.html\">All quiz</a></li>");
 
         //SDK request to load quizzes
-        SDK.loadQuizzes((err, quiz) => {
+        SDK.loadQuizzes((err, quizzes) => {
             if (err) throw err;
             //Save quiz list div as a constant
             const $quizList = $("#quizList");
             const course = SDK.Storage.load("chosenCourse");
-            var quizzes = JSON.parse(quiz);
 
             //Display course title on header
             $(".page-header").html(`<h1>${course.courseTitle}</h1>`);
@@ -31,12 +31,18 @@ $(document).ready(() => {
             consist of quiz information and button.
              */
             quizzes.forEach(quiz => {
+                var title = quiz.quizTitle;
+                if(title.length > 50) {
+                    title = title.substr(0,50);
+                    title = title + "...";
+                    console.log(title);
+                }
                 const quizHtml = `
         <div class="col-lg-4 quiz-container">
             <div class="panel panel-default">
                 <div class="panel-heading">
                 <!-- Use quiz title as header inside panel -->
-                    <h3 class="panel-title">${quiz.quizTitle}</h3>
+                    <h3 class="panel-title">${title}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="col-lg-4">
@@ -44,8 +50,6 @@ $(document).ready(() => {
                     <div class="col-lg-8">
                       <dl>
                         <!-- Set the information about the quiz -->
-                        <dt>Quiz</dt>
-                        <dd>${quiz.quizTitle}</dd>
                         <dt>Quiz ID</dt>
                         <dd>${quiz.quizId}</dd>
                         <dt>Created By</dt>
@@ -83,9 +87,8 @@ $(document).ready(() => {
                 SDK.Storage.persist("chosenQuiz", quiz);
 
                 //SDK reqest to load questions
-                SDK.loadQuestions((err, question) => {
+                SDK.loadQuestions((err, questions) => {
                     if (err) throw err;
-                    const questions = JSON.parse(question)
 
                     /*
                     Load modal with questions.
@@ -141,13 +144,12 @@ $(document).ready(() => {
         $("#tabs").html("<li><a href=\"usercourseview.html\">All quiz</a></li>");
         //SDK request to load quizzes
 
-        SDK.loadQuizzes((err, quiz) => {
+        SDK.loadQuizzes((err, quizzes) => {
             if (err) throw err;
 
             //Save quiz list div as a constant
             var $quizList = $("#quizList");
             const course = SDK.Storage.load("chosenCourse")
-            var quizzes = JSON.parse(quiz);
 
             //Display course title on header
             $(".page-header").html(`<h1>${course.courseTitle}</h1>`);
@@ -158,12 +160,19 @@ $(document).ready(() => {
             consist of quiz information and button.
              */
             quizzes.forEach(quiz => {
+                var title = quiz.quizTitle;
+                if(title.length > 50) {
+                    title = title.substr(0,50);
+                    title = title + "...";
+                    console.log(title);
+                }
+
                 const quizHtml = `
         <div class="col-lg-4 quiz-container">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <!-- Use quiz title as header inside panel -->
-                    <h3 class="panel-title">${quiz.quizTitle}</h3>
+                    <h3 class="panel-title">${title}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="col-lg-4">
@@ -171,8 +180,6 @@ $(document).ready(() => {
                     <div class="col-lg-8">
                       <dl>
                       <!-- Set the information about the quiz -->
-                        <dt>Quiz</dt>
-                        <dd>${quiz.quizTitle}</dd>
                         <dt>Created By</dt>
                         <dd>${quiz.createdBy}</dd>
 
@@ -211,6 +218,8 @@ $(document).ready(() => {
 
         });
     }
+
+
     //Listener on log out button
     $("#logout-link").click(() => {
         SDK.logOut(userId, (err, data) => {
