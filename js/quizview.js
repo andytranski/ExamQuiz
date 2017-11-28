@@ -25,7 +25,6 @@ $(document).ready(() => {
             //Display course title on header
             $(".page-header").html(`<h1>${course.courseTitle}</h1>`);
 
-
             /*
             For every quiz object in the array a panel
             will be added to the quiz list. The panel
