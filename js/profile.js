@@ -4,7 +4,7 @@ $(document).ready(() => {
     const userId = currentUser.userId;
 
     //Display username on header
-    $(".page-header").html(`<h1>Hi, ${currentUser.username}</h1>`);
+    $(".page-header").html(`<h1>${currentUser.username}</h1>`);
 
     //Display username and logout button on menu
     $(".navbar-right").html(`
