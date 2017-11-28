@@ -144,8 +144,6 @@ $(document).ready(() => {
                 $("#saveChangesButton").click(() => {
                     SDK.updateQuestionCount(questionCounter, newQuiz.quizId, (err, data) => {
                         window.location.href = "quizview.html";
-                        let quizview;
-                        quizview.loadQuizzes(allCourses[i]);
                     });
 
                 });

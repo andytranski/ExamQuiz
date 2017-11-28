@@ -86,7 +86,7 @@ $(document).ready(() => {
 
                 SDK.Storage.persist("chosenQuiz", quiz);
 
-                //SDK reqest to load questions
+                //SDK request to load questions
                 SDK.loadQuestions((err, questions) => {
                     if (err) throw err;
 
