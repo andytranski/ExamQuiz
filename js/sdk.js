@@ -1,7 +1,9 @@
 const SDK = {
+    //URL for the server
     serverURL: "http://localhost:8080/api",
-    request: (options, callback) => {
 
+    //SDK request
+    request: (options, callback) => {
         let headers = {};
         if (options.headers) {
             Object.keys(options.headers).forEach((h) => {
@@ -9,14 +11,17 @@ const SDK = {
             });
         }
 
+        //Asynchronous call to server
         $.ajax({
             url: SDK.serverURL + options.url,
             method: options.method,
             headers: headers,
             contentType: "application/json",
             dataType: "json",
+            //Encrypt the data sent to server
             data: JSON.stringify(SDK.encrypt(JSON.stringify(options.data))),
             success: (data, status, xhr) => {
+                //Decrypt the data received from server
                 callback(null, JSON.parse(SDK.decrypt(data)), status, xhr);
             },
             error: (xhr, status, errorThrown) => {
@@ -25,6 +30,7 @@ const SDK = {
         });
     },
 
+    //Login request
     login: (username, password, callback) => {
         SDK.request({
             data: {
@@ -36,13 +42,15 @@ const SDK = {
         }, (err, data) => {
 
             if (err) return callback(err);
+
+            //Persist the token used for headers
             SDK.Storage.persist("Token", data);
 
             callback(null, data);
         });
     },
 
-
+    //Signup request
     signup: (newUsername, newPassword, callback) => {
         SDK.request({
             data: {
@@ -58,25 +66,30 @@ const SDK = {
         });
     },
 
+    //Load current user request
     loadCurrentUser: (callback) => {
         SDK.request({
             method: "GET",
             url: "/user/myuser",
+            //Use header for authorization
             headers: {
                 authorization: SDK.Storage.load("Token"),
             },
         }, (err, user) => {
             if (err) return callback(err);
+            //Persist the user returned
             SDK.Storage.persist("User", user);
             callback(null, user);
         });
     },
 
+    //Method for returning current user
     currentUser: () => {
         const loadedUser = SDK.Storage.load("User");
         return loadedUser.currentUser;
     },
 
+    //Request for log out
     logOut: (userId, callback) => {
         SDK.request({
             method: "POST",
@@ -90,6 +103,7 @@ const SDK = {
 
     },
 
+    //Request for loading courses
     loadCourses: (callback) => {
         SDK.request({
             method: "GET",
@@ -104,6 +118,7 @@ const SDK = {
         });
     },
 
+    //Request for creating quiz
     createQuiz: (createdBy, questionCount, quizTitle, quizDescription, courseId, callback) => {
         SDK.request({
             data: {
@@ -125,6 +140,7 @@ const SDK = {
         })
     },
 
+    //Request for updating question count
     updateQuestionCount: (questionCounter, quizId, callback) => {
         SDK.request({
             data: questionCounter,
@@ -140,7 +156,9 @@ const SDK = {
         })
     },
 
+    //Request for loading quizzes
     loadQuizzes: (callback) => {
+        //Load the course id from local storage
         const chosenCourse = SDK.Storage.load("chosenCourse");
         const courseId = chosenCourse.courseId;
         SDK.request({
@@ -155,7 +173,9 @@ const SDK = {
         });
     },
 
+    //Request for deleting quiz
     deleteQuiz: (callback) => {
+        //Load the quiz id
         const chosenQuiz = SDK.Storage.load("chosenQuiz")
         const quizId = chosenQuiz.quizId;
         SDK.request({
@@ -171,7 +191,9 @@ const SDK = {
 
     },
 
+    //Request for loading questions
     loadQuestions: (callback) => {
+        //Load quizId
         const chosenQuiz = SDK.Storage.load("chosenQuiz");
         const quizId = chosenQuiz.quizId;
         SDK.request({
@@ -186,7 +208,7 @@ const SDK = {
         });
     },
 
-
+    //Request for creating question
     createQuestion: (question, questionToQuizId, callback) => {
         SDK.request({
             data: {
@@ -205,6 +227,7 @@ const SDK = {
         })
     },
 
+    //Request for creating option
     createOption: (option, optionToQuestionId, isCorrect, callback) => {
         SDK.request({
             data: {
@@ -223,6 +246,7 @@ const SDK = {
         })
     },
 
+    //Request for creating option
     loadOptions: (questionId, callback) => {
         SDK.request({
             method: "GET",
@@ -237,13 +261,16 @@ const SDK = {
     },
 
 
+    //Local storage function
     Storage:
         {
             prefix: "DøkQuizSDK",
+            //Method for saving to local storage
             persist:
                 (key, value) => {
                     window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
                 },
+            //Method for loading in local storage
             load:
                 (key) => {
                     const val = window.localStorage.getItem(SDK.Storage.prefix + key);
@@ -254,6 +281,7 @@ const SDK = {
                         return val;
                     }
                 },
+            //Method for removing element in local storage
             remove:
                 (key) => {
                     window.localStorage.removeItem(SDK.Storage.prefix + key);
@@ -262,8 +290,10 @@ const SDK = {
         }
     ,
 
+    //Method for encrypting data to the server
     encrypt: (encrypt) => {
         if (encrypt !== undefined && encrypt.length !== 0) {
+            //Encrypt key
             const key = ['L', 'Y', 'N'];
             let isEncrypted = "";
             for (let i = 0; i < encrypt.length; i++) {
@@ -275,9 +305,11 @@ const SDK = {
         }
     },
 
+    //Method for decrypting data from the server
     decrypt:
         (decrypt) => {
             if (decrypt !== undefined && decrypt.length !== 0) {
+                //Decrypt key
                 const key = ['L', 'Y', 'N'];
                 let isDecrypted = "";
                 for (let i = 0; i < decrypt.length; i++) {
