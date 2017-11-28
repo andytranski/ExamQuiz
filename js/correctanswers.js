@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    //Load current user object with id
     const currentUser = SDK.currentUser();
     const userId = currentUser.userId;
 

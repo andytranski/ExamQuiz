@@ -90,14 +90,20 @@ $(document).ready(() => {
                 }
                 //SDK request to load options with question id as parameter
                 SDK.loadOptions(questionId, (err, loadedOptions) => {
+
+                    //Shuffle the displayed options
+                    let shuffledOptions = loadedOptions = shuffle(loadedOptions);
+
                     //For-each loaded options add new table row with option as button
-                    $.each(loadedOptions, function (key, val) {
-                        var tr = '<tr>';
-                        tr += '<td> <button class="btn btn-primary" type="button" id="' + loadedOptions[key].optionId + '"> ' + loadedOptions[key].option + '</button></td>';
-                        tr += '</tr>';
-                        //Append rows to the table
-                        $optionTableBody.append(tr);
-                        clickListener(loadedOptions, loadedQuestions, titles)
+                    $.each(shuffledOptions, function (key, val) {
+                        if(loadedOptions[key].option) {
+                            var tr = '<tr>';
+                            tr += '<td> <button class="btn btn-primary" type="button" id="' + loadedOptions[key].optionId + '"> ' + loadedOptions[key].option + '</button></td>';
+                            tr += '</tr>';
+                            //Append rows to the table
+                            $optionTableBody.append(tr);
+                            clickListener(loadedOptions, loadedQuestions, titles)
+                        }
                     });
                 });
             }
