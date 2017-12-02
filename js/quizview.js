@@ -86,35 +86,9 @@ $(document).ready(() => {
 
                 SDK.Storage.persist("chosenQuiz", quiz);
 
-                //SDK request to load questions
-                SDK.loadQuestions((err, questions) => {
-                    if (err) throw err;
+                //Change view to display questions
+                window.location.href = "correctview.html"
 
-                    /*
-                    Load modal with questions.
-                    The modal is created to only register click
-                    on button. Therefore esc and click outside
-                    the modal is not recognized.
-                     */
-                    $('#quizModal').removeData("modal").modal({backdrop: 'static', keyboard: false})
-                    $('#quizModal').modal('show');
-
-                    //Save question table div as a constant
-                    const $questionTableBody = $("#questionTableBody");
-
-                    //For each question loop print out question
-                    $.each(questions, function (key, val) {
-                        var tr = '<tr>';
-                        tr += '<td >' + questions[key].question + '</td>';
-                        tr += '</tr>';
-                        $questionTableBody.append(tr);
-
-                    });
-
-                    //Listener on dismiss button to empty table
-                    $("#dismissButton").on("click", () => {
-                        $questionTableBody.empty();
-                    });
                 })
             });
 
@@ -137,11 +111,10 @@ $(document).ready(() => {
 
 
             });
-        });
         //Show specific panel for user
     } else if (currentUser.type === 2) {
         //Set the menu bar with user rights
-        $("#tabs").html("<li><a href=\"usercourseview.html\">All quiz</a></li>");
+        $("#tabs").html("<li><a href=\"courseview.html\">All quiz</a></li>");
         //SDK request to load quizzes
 
         SDK.loadQuizzes((err, quizzes) => {
@@ -229,7 +202,10 @@ $(document).ready(() => {
                 //Clear the local storage upon log out
                 window.location.href = "login.html";
                 SDK.Storage.remove("User")
-                SDK.Storage.remove("token")
+                SDK.Storage.remove("Token")
+                SDK.Storage.remove("chosenCourse")
+                SDK.Storage.remove("chosenQuiz")
+                SDK.Storage.remove("Courses")
             }
         })
     });

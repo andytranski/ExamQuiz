@@ -185,7 +185,10 @@ $(document).ready(() => {
             } else {
                 window.location.href = "login.html";
                 SDK.Storage.remove("User")
-                SDK.Storage.remove("token")
+                SDK.Storage.remove("Token")
+                SDK.Storage.remove("chosenCourse")
+                SDK.Storage.remove("chosenQuiz")
+                SDK.Storage.remove("Courses")
             }
         })
     });

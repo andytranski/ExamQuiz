@@ -7,10 +7,14 @@ $(document).ready(() => {
     $(".page-header").html(`<h1>${currentUser.username}</h1>`);
 
     //Display username and logout button on menu
+    if (currentUser.type === 2) {
+    $("#tabs").html("<li><a href=\"courseview.html\">All quiz</a></li>");
+
     $(".navbar-right").html(`
         <li><a href="profile.html" id="user-link">${currentUser.username}</a></li>
         <li><a href="#" id="logout-link">Log out</a></li>
     `);
+}
 
     //Listener on log out button
     $("#logout-link").click(() => {
@@ -21,7 +25,11 @@ $(document).ready(() => {
                 //Clear the local storage upon log out
                 window.location.href = "login.html";
                 SDK.Storage.remove("User")
-                SDK.Storage.remove("token")
+                SDK.Storage.remove("Token")
+                SDK.Storage.remove("chosenCourse")
+                SDK.Storage.remove("chosenQuiz")
+                SDK.Storage.remove("Courses")
+
             }
         })
     });
