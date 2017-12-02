@@ -186,6 +186,7 @@ const SDK = {
             },
         }, (err, data) => {
             if (err) return callback(err);
+            console.log(data);
             callback(null, data)
         });
 

@@ -32,8 +32,8 @@ $(document).ready(() => {
              */
             quizzes.forEach(quiz => {
                 var title = quiz.quizTitle;
-                if(title.length > 50) {
-                    title = title.substr(0,50);
+                if (title.length > 50) {
+                    title = title.substr(0, 50);
                     title = title + "...";
                     console.log(title);
                 }
@@ -89,11 +89,11 @@ $(document).ready(() => {
                 //Change view to display questions
                 window.location.href = "correctview.html"
 
-                })
             });
 
             //Listener on delete button
             $('.delete-button').on('click', function () {
+                console.log("hej");
                 /*
                 Refer to the exact button clicked and save id.
                 Use find attribute to locate the id and save the
@@ -105,12 +105,14 @@ $(document).ready(() => {
                 SDK.Storage.persist("chosenQuiz", quiz);
 
                 //SDK request to delete quiz and reload HTML page
+                location.reload();
                 SDK.deleteQuiz((err, data) => {
-                    location.reload();
                 });
 
 
             });
+        });
+
         //Show specific panel for user
     } else if (currentUser.type === 2) {
         //Set the menu bar with user rights
@@ -134,8 +136,8 @@ $(document).ready(() => {
              */
             quizzes.forEach(quiz => {
                 var title = quiz.quizTitle;
-                if(title.length > 50) {
-                    title = title.substr(0,50);
+                if (title.length > 50) {
+                    title = title.substr(0, 50);
                     title = title + "...";
                     console.log(title);
                 }
