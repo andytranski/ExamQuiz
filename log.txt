@@ -1,0 +1,68 @@
+2141425 - Andy Tran, 3 weeks ago : fixed delete quiz
+30a49b8 - Andy Tran, 3 weeks ago : Change name of javascript files
+b10d181 - Andy Tran, 3 weeks ago : Fixed log out clearing storage
+30a21c4 - Andy Tran, 3 weeks ago : Added comments for SDK
+327fa18 - Andy Tran, 3 weeks ago : Added fixes
+d16e01c - Andy Tran, 3 weeks ago : added comments for new quiz
+1c28858 - Andy Tran, 3 weeks ago : added comments for correct answers
+bdb90d3 - Andy Tran, 3 weeks ago : shuffle options
+a5aa0f2 - Andy Tran, 3 weeks ago : added comments for playquiz
+a36ac3e - Andy Tran, 3 weeks ago : added some styling
+2d01ef3 - Andy Tran, 3 weeks ago : Fixed profile page
+c7fe4eb - Andy Tran, 3 weeks ago : Can now edit the question count
+47df94e - Andy Tran, 3 weeks ago : Can now see correct answers
+6610cc9 - Andy Tran, 4 weeks ago : Added user definitions
+ff166ca - Andy Tran, 4 weeks ago : Added comments for quizview
+81aa390 - Andy Tran, 4 weeks ago : added comments for course view
+2d98d79 - Andy Tran, 4 weeks ago : Added comments
+1879ba6 - Andy Tran, 4 weeks ago : Fixed new quiz option bug
+2f42357 - Andy Tran, 4 weeks ago : Changed layout for course
+7d4ef58 - Andy Tran, 4 weeks ago : Can now play quiz
+ccd7ec5 - Andy Tran, 4 weeks ago : Working with playing quiz
+22c663d - Andy Tran, 4 weeks ago : added html for play quiz
+cd86cb4 - Andy Tran, 4 weeks ago : Added play quiz function
+ae4506c - Andy Tran, 5 weeks ago : Changed icon for delete
+32d5d26 - Andy Tran, 5 weeks ago : Can now delete quiz
+7fba442 - Andy Tran, 5 weeks ago : Design changes
+bb2e3e5 - Andy Tran, 5 weeks ago : New question ok
+0bfcb2f - Andy Tran, 5 weeks ago : Can now create question to a quiz
+d95b5d5 - Andy Tran, 5 weeks ago : Fixed wrong table names
+e13ca8a - Andy Tran, 5 weeks ago : Can now see all quiz and course
+cc1150b - Andy Tran, 5 weeks ago : Can now list all courses
+aa2262c - Andy Tran, 5 weeks ago : Added quiz view
+7712eaa - Andy Tran, 5 weeks ago : New quiz ok
+f4c24c0 - Andy Tran, 5 weeks ago : New quiz function
+b78b98b - Andy Tran, 5 weeks ago : workspace
+731523a - Andy Tran, 5 weeks ago : Merge branch 'newmenu'
+d8e6477 - Andy Tran, 5 weeks ago : Added new menu bar
+78edf77 - Andy Tran, 5 weeks ago : fix nav
+74965b5 - Andy Tran, 5 weeks ago : new menu bar
+185c1e3 - Andy Tran, 5 weeks ago : test
+ab2e8b8 - Andy Tran, 5 weeks ago : workspace
+3e8ae6b - Andy Tran, 5 weeks ago : new menu
+d7b17b7 - Andy Tran, 5 weeks ago : Workspace
+8303c17 - Andy Tran, 6 weeks ago : Merge remote-tracking branch 'origin/logout'
+8b248d3 - Andy Tran, 6 weeks ago : Added menu html
+9bd8d12 - Andy Tran, 6 weeks ago : Merge pull request #5 from andytranski/logout
+e8e1536 - Andy Tran, 6 weeks ago : Log out now working
+fd2dc0c - Andy Tran, 6 weeks ago : Merge pull request #4 from andytranski/encryption
+16a2f71 - Andy Tran, 6 weeks ago : Merge remote-tracking branch 'origin/encryption'
+ca52f65 - Andy Tran, 6 weeks ago : Clearing password input on error
+1cf7310 - Andy Tran, 6 weeks ago : Encryption and saving user in localstorage ok
+74d5d26 - Andy Tran, 6 weeks ago : Merge pull request #3 from andytranski/encryption
+f6f7c98 - Andy Tran, 6 weeks ago : Fixed so only users can log in
+6f46c4a - Andy Tran, 6 weeks ago : Encryption for login ok
+1a22c15 - Andy Tran, 6 weeks ago : Merge pull request #2 from andytranski/signup-mods
+e3fad90 - Andy Tran, 6 weeks ago : Merge pull request #1 from andytranski/token
+c75c2b8 - Andy Tran, 6 weeks ago : Updated signup with password verification
+abc461e - Andy Tran, 6 weeks ago : Workspace added
+aba61c6 - Andy Tran, 6 weeks ago : Fixed currentUser
+74b945d - Andy Tran, 6 weeks ago : Workspace added
+fe88bcc - Andy Tran, 6 weeks ago : Saving tokens in local storage
+57e2966 - Andy Tran, 6 weeks ago : still not working, but working on tokens
+16ff477 - Andy Tran, 6 weeks ago : Fix signup
+7e438e5 - Andy Tran, 6 weeks ago : Sign up function in development
+abeaccd - Andy Tran, 6 weeks ago : Added workspace
+539136d - Andy Tran, 6 weeks ago : Login ok
+9a2d2da - Andy Tran, 6 weeks ago : Fix alert
+deedde7 - Andy Tran, 6 weeks ago : First commit
